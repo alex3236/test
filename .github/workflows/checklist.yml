@@ -2,20 +2,26 @@ on:
   pull_request:
     types: [edited, opened, reopened, synchronize]
     paths:
-     - test/**
+      - test/**
+  issue_comment:
+    types: [edited]
 
-name: Checkmate
+name: Checklist
 jobs:
   validate-checklists:
     runs-on: ubuntu-latest
+    if: ${{ github.event.issue.pull_request }}
     steps:
       - uses: actions/checkout@v3
       - name: Validate Checklists
         uses: roryq/checkmate@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          preamble: |
+            ## 合并前检查单
+            感谢您的贡献。请等待插件仓库维护者检查您的插件。
           paths: |
-            test/*.yml:
+            plugins/**:
               - 插件名称符合其功能、没有歧义
               - 仓库属于提交者本人或本人为仓库维护者
               - 分类正确
