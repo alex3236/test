@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Validate Checklists
-        uses: roryq/checkmate@master
+        uses: alex3236/checkmate@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           preamble: |
